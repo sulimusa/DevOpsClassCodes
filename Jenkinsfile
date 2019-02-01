@@ -17,5 +17,15 @@ node () {
 			} 
  		} 
 	}
+	stage ('Dev CodeReview - Build') {
+ 			// Maven build step
+	withMaven(maven: 'my_maven') { 
+ 			if(isUnix()) {
+ 				sh "mvn -P metrics pmd:pmd " 
+			} else { 
+ 				bat "mvn -P metrics pmd:pmd " 
+			} 
+ 		} 
+	}
 }
 }
