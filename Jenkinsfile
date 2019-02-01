@@ -27,5 +27,17 @@ node () {
 			} 
  		} 
 	}
+	stage ('QA UnitTest - Build') {
+ 			// Maven build step
+	withMaven(maven: 'my_maven') { 
+ 			if(isUnix()) {
+ 				sh "mvn test " 
+			} else { 
+ 				bat "mvn test " 
+			} 
+ 		}
+		// JUnit Results
+		junit 'target/surefire-reports/*.xml' 
+	}
 }
 }
