@@ -4,26 +4,16 @@ timestamps {
 
 node () {
 
-	stage ('Developer Compile - Checkout') {
- 	 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '4cf7e508-a3cd-43af-8bb2-f20d17c45c59', url: 'https://github.com/sulimusa/DevOpsClassCodes.git']]]) 
+	stage ('Dev Compile - Checkout') {
+ 	 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '96360fdc-7326-4a73-905b-941ad7c667a6', url: 'https://github.com/sulimusa/DevOpsClassCodes.git']]]) 
 	}
-	stage ('Developer Compile - Build') {
+	stage ('Dev Compile - Build') {
  			// Maven build step
 	withMaven(maven: 'my_maven') { 
  			if(isUnix()) {
  				sh "mvn compile " 
 			} else { 
  				bat "mvn compile " 
-			} 
- 		} 
-	}
-	stage ('Developer Code Review - Build') {
- 			// Maven build step
-	withMaven(maven: 'my_maven') { 
- 			if(isUnix()) {
- 				sh "mvn -P metrics pmd:pmd " 
-			} else { 
- 				bat "mvn -P metrics pmd:pmd " 
 			} 
  		} 
 	}
