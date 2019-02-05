@@ -49,5 +49,16 @@ node () {
 			} 
  		} 
 	}
+	stage ('QA Package - Build') {
+ 			// Maven build step
+	withMaven(maven: 'my_maven') { 
+ 			if(isUnix()) {
+ 				sh "mvn package " 
+			} else { 
+ 				bat "mvn package " 
+			} 
+ 		}
+		archiveArtifacts allowEmptyArchive: false, artifacts: 'target/addressbook.war', caseSensitive: true, defaultExcludes: true, fingerprint: false, onlyIfSuccessful: false 
+	}
 }
 }
