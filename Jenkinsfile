@@ -39,5 +39,15 @@ node () {
 		// JUnit Results
 		junit 'target/surefire-reports/*.xml' 
 	}
+	stage ('QA MetricCheck - Build') {
+ 			// Maven build step
+	withMaven(maven: 'my_maven') { 
+ 			if(isUnix()) {
+ 				sh "mvn cobertura:cobertura " 
+			} else { 
+ 				bat "mvn cobertura:cobertura " 
+			} 
+ 		} 
+	}
 }
 }
